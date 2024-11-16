@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mega Menu</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+<!-- Link to the CSS file for font-awesome -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+<style>
+	.header {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the shadow values as needed */
+	}		
+	.logout-icon {
+		margin-left: 10px;
+		font-size: 1.5rem;
+		color: #007bff;
+	}
+	
+	.logout-icon:hover {
+		color: #dc3545; /* Change color on hover */
+	}
+</style>
+
+
+
+<!-- Link to the custom CSS file for your style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+ 
+ <!-- header start -->
+ <header class="header">
+ 	<div class="container">
+ 		<div class="row v-center">
+ 			<div class="header-item item-left">
+ 				<div class="logo">
+ 					<a href="/">EL-Link</a>
+ 				</div>
+ 			</div>
+ 			<!-- menu start here -->
+ 			<div class="header-item item-center">
+				<div class="menu-overlay"></div>
+				<nav class="menu d-flex justify-content-center">
+					<div class="mobile-menu-head">
+						<div class="go-back"><i class="fa fa-angle-left"></i></div>
+						<div class="current-menu-title"></div>
+						<div class="mobile-menu-close">&times;</div>
+					</div>
+					<ul class="menu-main list-unstyled d-flex justify-content-center">
+						<li class="mx-3">
+							<a href="/">Home</a>
+						</li>
+ 						<li class="menu-item-has-children">
+							<a href="products">Products <i class="fa fa-angle-down"></i></a>
+							<div class="sub-menu mega-menu mega-menu-column-4">
+								{% for category in product_categories %}
+								<div class="list-item">
+									<a href="/products/{{ category.id }}">
+										<h4 class="title">{{ category.product_name }}</h4>
+									</a>
+									<ul>
+										{% for brand_product in brand_product_categories %}
+											{% if brand_product.product_category == category %}
+											<li>
+												<!-- Updated href -->
+												<a href="/products/{{ brand_product.product_category.id }}/{{ brand_product.id }}">
+													{{ brand_product.product_name }}
+												</a>
+											</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								</div>
+								{% endfor %}
+							</div>
+						</li>
+						
+ 						{% comment %} <li class="menu-item-has-children">
+ 							<a href="#">Blog <i class="fas fa-angle-down"></i></a>
+ 							<div class="sub-menu single-column-menu">
+ 								<ul>
+ 									<li><a href="#">Standard Layout</a></li>
+ 									<li><a href="#">Grid Layout</a></li>
+ 									<li><a href="#">single Post Layout</a></li>
+ 								</ul>
+ 							</div>
+ 						</li>
+ 						<li class="menu-item-has-children">
+ 							<a href="#">Pages <i class="fas fa-angle-down"></i></a>
+ 							<div class="sub-menu single-column-menu">
+ 								<ul>
+ 									<li><a href="#">Login</a></li>
+ 									<li><a href="#">Register</a></li>
+ 									<li><a href="#">Faq</a></li>
+ 									<li><a href="#">404 Page</a></li>
+ 								</ul>
+ 							</div>
+ 						</li> {% endcomment %}
+ 						<li>
+ 							<a href="/contact">Contact</a>
+ 						</li>
+ 					</ul>
+ 				</nav>
+ 			</div>
+ 			<!-- menu end here -->
+			 <div class="header-item item-right">
+				<!-- Check if fullname exists (i.e., user is logged in) -->
+				{% if fullname %}
+					<span class="user-name">Welcome, {{ fullname }}</span>
+					<!-- Logout Icon -->
+					<a href="{% url 'logout' %}" class="logout-icon">
+						<i class="bi bi-box-arrow-right"></i> <!-- Bootstrap Logout Icon -->
+					</a>
+				{% else %}
+					<!-- Show Login and Register links if not logged in -->
+					<a href="/login" class="login-link">Login</a>
+					<a href="/register" class="register-link">Register</a>
+				{% endif %}
+				
+				<div class="mobile-menu-trigger">
+					<span></span>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+ 		</div>
+ 	</div>
+ </header>
+ <!-- header end -->
+
+ <!-- banner start -->
+ <section class="banner-section">
+ 	
+ </section>
+ <!-- banner end -->
+
+ <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

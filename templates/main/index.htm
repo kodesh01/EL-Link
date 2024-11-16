@@ -1,0 +1,210 @@
+{% extends "base.htm" %}
+
+{% block title %}
+Home | Edison Company
+{% endblock title %}
+
+{% block content %}
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    
+    <!-- First Slide -->
+    <div class="carousel-item active">
+      <div class="carousel-video-container" style="position: relative; max-height: 550px; overflow: hidden;">
+        <video class="d-block w-100" autoplay muted loop style="opacity: 1; object-fit: cover; height: 100%;">
+          <source src="media/intro.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="dark-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+        
+        <!-- Text and Button Above the Video -->
+        <div class="carousel-text-button-container" style="position: absolute; top: 20%; left: 50%; color: white; z-index: 2;">
+          <p class="carousel-text" style="margin-left: 100px;">Welcome to El - Link</p>
+          <p class="carousel-text">Where Quality Meets Excellence</p>
+          <button class="carousel-button" style="margin-left: 150px;" onclick="window.location.href='/contact';">Get In Touch With Us >></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Second Slide -->
+    <div class="carousel-item">
+      <div class="carousel-video-container" style="position: relative; max-height: 550px; overflow: hidden;">
+        <video class="d-block w-100" autoplay muted loop style="opacity: 1; object-fit: cover; height: 100%;">
+          <source src="media/intro2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="dark-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+        
+        <!-- Text and Button Above the Video -->
+        <div class="carousel-text-button-container" style="position: absolute; top: 20%; left: 50%; color: white; z-index: 2;">
+          <p class="carousel-text" style="margin-left: 100px;">Explore Our Products</p>
+          <p class="carousel-text">Tailored Solutions for Your Needs</p>
+          <button class="carousel-button" style="margin-left: 150px;" onclick="window.location.href='/products';">Learn More >></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Third Slide -->
+    <div class="carousel-item">
+      <div class="carousel-video-container" style="position: relative; max-height: 550px; overflow: hidden;">
+        <video class="d-block w-100" autoplay muted loop style="opacity: 1; object-fit: cover; height: 100%;">
+          <source src="media/intro3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="dark-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+        
+        <!-- Text and Button Above the Video -->
+        <div class="carousel-text-button-container" style="position: absolute; top: 20%; left: 50%; color: white; z-index: 2;">
+          <p class="carousel-text" style="margin-left: 100px;">Our Commitment</p>
+          <p class="carousel-text">Delivering Excellence Every Time</p>
+          <button class="carousel-button" style="margin-left: 150px;" onclick="window.location.href='/contact';">Discover More >></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <!-- Carousel Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+<!-- ################################################################################# -->
+<div class="text-center fw-bold fs-3 mt-5">
+  PRODUCTS
+</div>
+<div class="d-flex flex-wrap justify-content-center ">
+  {% for i in product_categories %}
+      <a href="/products/{{ i.id }}" class="product-link">
+          <div class="product-image-containerr">
+              <img src="{{ i.product_image.url }}" class="img-fluid product-imagee" alt=""><br>
+              <p style="color: black;">{{ i.product_name }}</p>
+          </div>
+      </a>
+  {% endfor %}
+</div>
+<div class="text-center fw-bold fs-3 mt-4">
+  WE OFFER 
+</div>
+<div class="container-fluid bg-light">
+  <div class="row">
+    <div class="col-md-6 p-1">
+      <div class="image-box position-relative">
+        <img
+          src="https://www.georgetelegraph.com/img/111.jpg"
+          class="d-block w-100"
+          alt="Image 1"
+          style="height: 400px; object-fit: cover;"
+        />
+        <!-- Bold text above the button (no box) -->
+        <div class="bold-text">We Offer Quality</div>
+        <!-- Round button for Image 1 -->
+        <button class="round-button" onclick="window.location.href='/contact';">Get In Touch With Us >></button>
+      </div>
+    </div>
+    <div class="col-md-6 p-1">
+      <div class="image-box position-relative">
+        <img
+          src="https://img.pikbest.com/ai/illus_our/20230427/a74e0ce30d41925fab1c291c952ba7db.jpg!w700wp"
+          class="d-block w-100"
+          alt="Image 2"
+          style="height: 400px; object-fit: cover;"
+        />
+        <!-- Bold text above the button (no box) -->
+        <div class="bold-text">We Offer Procucts</div>
+        <!-- Round button for Image 2 -->
+        <button class="round-button" onclick="window.location.href='/products';">Visit Our Products >></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .image-box {
+    position: relative;
+  }
+
+  .bold-text {
+    position: absolute;
+    top: 60%; /* Adjust this value to control the vertical position of the text */
+    left: 20px; /* Same value as button's left position */
+    transform: translateY(-50%);
+    color: #ffffff; /* Text color */
+    font-weight: bold; /* Make the text bold */
+    font-size: 40px; /* Adjust the font size */
+    /* Removed background color and padding to remove the box */
+  }
+
+  .round-button {
+    position: absolute;
+    top: 80%;
+    left: 20px; /* Adjust this value to control how far from the left the button is */
+    transform: translateY(-50%);
+    background-color: transparent; /* Make the background transparent */
+    color: #ffffff; /* Text color to match the border */
+    border: 2px solid #0d0e10; /* Border color and thickness */
+    border-radius: 5%; /* Keeps the button round */
+    padding: 10px 15px; /* Adjust the padding to change button size */
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+  }
+
+  .round-button:hover {
+    border-color: #f1f1f1; /* Darker border color on hover */
+    color: #ffffff; /* Text color changes on hover */
+  }
+  .carousel-video-container {
+    position: relative;
+  }
+
+  .carousel-text-button-container {
+    position: absolute;
+    top: 50%; /* Adjust this value to control the vertical position */
+    left: 50%; /* Move the text and button further to the left */
+    transform: translateX(-50%); /* Centers the content horizontally */
+    text-align: left; /* Align text to the left */
+    color: white; /* Text color */
+  }
+
+  .carousel-text {
+    font-size: 2rem; /* Adjust the size of the text */
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .carousel-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #007bff;
+    background-color: transparent;
+    border: 2px solid #007bff;
+    border-radius: 25px; /* Round button */
+    cursor: pointer;
+    margin-left: 20px; /* This will move the button slightly to the left of the text */
+  }
+
+  .carousel-button:hover {
+    border-color: #0056b3;
+    color: #0056b3;
+  }
+  
+  
+</style>
+
+{% include "footer.htm" %}
+{% endblock content %}

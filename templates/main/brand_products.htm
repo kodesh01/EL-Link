@@ -1,0 +1,93 @@
+{% extends "base.htm" %}
+
+{% block title %}
+Brand Products | Edison Company
+{% endblock title %}
+
+{% block content %}
+<style>
+    .card-body {
+        min-height: 300px; /* Ensure consistent height for text content */
+        position: relative; /* Make the card body a reference point for positioning the text */
+        opacity: 1; /* Reduce opacity of the card body */
+        transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+    }
+
+    .card-img-top {
+        height: 300px; /* Set a fixed height for the image */
+        object-fit: cover; /* Ensure image is cropped to fit the space */
+    }
+
+    .card-title {
+        margin-top: 25px; /* Adjust the margin to push the product name down */
+    }
+
+    /* Card Styling */
+    .card {
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+    }
+
+    /* Hover effects */
+    .card:hover {
+        transform: translateY(-10px); /* Lift the card up on hover */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Denser shadow at the bottom */
+    }
+
+    
+
+    .read-more {
+        visibility: hidden;
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: visibility 0.3s ease;
+    }
+
+    .card:hover .read-more {
+        visibility: visible; /* Make 'Read More' visible when the card is hovered */
+    }
+
+    /* Remove text decoration from card links */
+    .card-link {
+        text-decoration: none;
+    }
+</style>
+
+<div class="container my-4">
+    <h1 class="text-center mb-4">Brand Products</h1>
+    <div class="row d-flex justify-content-start justify-content-md-between">
+        {% for product in brand_products %}
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+            <a href="/brand_product_details/{{ product.id }}" class="card h-100 text-decoration-none rounded-3">
+                <div class="card-body bg-dark text-white d-flex flex-column rounded-3">
+                    <div class="read-more">Read More</div>
+                    {% if product.product_image %}
+                    <img src="{{ product.product_image.url }}" class="card-img-top product-image rounded-3" alt="{{ product.product_name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top product-image rounded-3" alt="Product Image">
+                    {% endif %}
+                    <h5 class="card-title">{{ product.product_name }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                    <p class="text-muted">Added on: {{ product.date|date:"F j, Y" }}</p>
+
+                    {% if not product.pdf %}
+                    <p>No PDF available</p>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "footer.htm" %}
+
+{% endblock content %}

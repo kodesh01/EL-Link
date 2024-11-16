@@ -1,0 +1,27 @@
+{% extends "base.htm" %}
+{% block title %}
+Register | Edison Company
+{% endblock title %}
+
+{% block content %}
+
+<div class="container border border-dark col-md-4 col-sm-4 col-lg-4 col-xs-4">
+    <h1 class="display-4 text-center fw-bold">REGISTER PAGE</h1>
+    <form action="" method="post" autocapitalize="off" autocomplete="off">
+        {% csrf_token %}
+
+        <input type="text" name="fullname" id="fullname" class="form form-control my-3 " placeholder="Enter Your Fullname">
+        <input type="email" name="email" id="email" class="form form-control my-3 " placeholder="Enter Your E-Mail">
+        <input type="number" name="mobile" id="mobile" class="form form-control my-3 " placeholder="Enter Your Mobile Number">
+
+        <input type="password" name="password" id="password" class="form form-control my-3" placeholder="Enter Your Password">
+        <input type="password" name="confirm" id="confirm" class="form form-control my-3" placeholder="Enter Your Password Again">
+
+        <div class="text-center my-3">
+            <input type="submit" value="Register" class="btn btn-primary">
+        </div>
+
+    </form>
+</div>
+
+{% endblock content %}

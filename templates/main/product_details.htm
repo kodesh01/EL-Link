@@ -1,0 +1,212 @@
+{% extends "base.htm" %}
+
+{% block title %}
+Product Details | Edison Company
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    /* Resetting to light theme */
+    .container {
+        max-width: 1200px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+    .card-body {
+        min-height: 300px;
+        position: relative;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .card-img-top {
+        height: 400px; /* Increased height of the image */
+        width: 100%; /* Ensures the image takes full width of the container */
+        object-fit: cover;
+        border-radius: 10px; /* Border radius for the image */
+    }
+
+    .card-title {
+        margin-top: 25px;
+    }
+
+    .form-control {
+        background: #ffffff;
+        border: 1px solid #ced4da;
+        color: #495057;
+        border-radius: 5px; /* Rounded form input */
+    }
+
+    .btn-primary, .btn-secondary {
+        border-radius: 5px; /* Rounded buttons */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    .text-danger {
+        color: #ff4d4d;
+    }
+
+    .label-text {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #495057;
+    }
+
+    /* Dark theme for the contact box */
+    .contact-box {
+        border: 1px solid #ced4da;
+        padding: 20px;
+        margin-top: 30px;
+        background-color: #343a40; /* Dark background for contact box */
+        color: #ffffff; /* Light text for dark theme */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow */
+    }
+
+    .contact-box .label-text {
+        color: #f8f9fa; /* Light text for labels in dark theme */
+    }
+
+    .contact-box .form-control {
+        background: #495057; /* Dark background for input fields */
+        color: #f8f9fa; /* Light text for input fields */
+        border: 1px solid #6c757d; /* Light border */
+    }
+
+    .contact-box .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .contact-box .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+
+<div class="container ">
+    <h1 class="text-center mb-4">{{ product_details.product_name }}</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            {% if product_details.product_image %}
+            <img src="{{ product_details.product_image.url }}" class="img-fluid card-img-top" alt="{{ product_details.product_name }}">
+            {% else %}
+            <img src="https://via.placeholder.com/500x300" class="img-fluid card-img-top" alt="No Image Available">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p><strong>Description:</strong> {{ product_details.description }}</p>
+            <p><strong>Added On:</strong> {{ product_details.date|date:"F j, Y" }}</p>
+
+            {% if request.session.is_authenticated %}
+                {% if product_details.pdf %}
+                    <p><strong>Download PDF:</strong> <a href="{{ product_details.pdf.url }}" class="btn btn-primary" target="_blank">Download</a></p>
+                {% else %}
+                    <p>No PDF available for this product.</p>
+                {% endif %}
+            {% else %}
+                <p class="text-danger">You must be logged in to download the PDF. <a href="/login">Login</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'products' %}" class="btn btn-secondary">Back to Products</a>
+    </div>
+</div>
+
+<!-- Contact Box Section -->
+<div class="contact-box container mt-5 col-lg-8 col-md-10 col-sm-12">
+    <form action="" method="post" autocapitalize="off" autocomplete="off">
+        {% csrf_token %}
+
+        <!-- Full Name Field -->
+        <div class="form-group">
+            <label for="fullname" class="label-text">Full Name</label>
+            <input 
+                type="text" 
+                name="fullname" 
+                id="fullname" 
+                value="{{ user.fullname }}" 
+                class="form-control my-3" 
+                readonly 
+                placeholder="Enter Your Full Name">
+        </div>
+
+        <!-- Email Address Field -->
+        <div class="form-group">
+            <label for="email" class="label-text">Email Address</label>
+            <input 
+                type="email" 
+                name="email" 
+                id="email"  
+                value="{{ user.email }}" 
+                class="form-control my-3" 
+                readonly 
+                placeholder="Enter Your E-Mail">
+        </div>
+
+        <!-- Mobile Number Field -->
+        <div class="form-group">
+            <label for="mobile" class="label-text">Mobile Number</label>
+            <input 
+                type="number" 
+                name="mobile" 
+                id="mobile" 
+                value="{{ user.mobile }}"  
+                class="form-control my-3" 
+                readonly 
+                placeholder="Enter Your Mobile Number">
+        </div>
+        
+        <!-- Product ID Field -->
+        <div class="form-group">
+            <label for="product_id" class="label-text">Product ID</label>
+            <input 
+                type="number" 
+                name="product_id" 
+                id="product_id" 
+                value="{{ product_details.id }}"  
+                class="form-control my-3" 
+                readonly 
+                placeholder="Product ID">
+        </div>
+
+        <!-- Product Name Field -->
+        <div class="form-group">
+            <label for="product_name" class="label-text">Product Name</label>
+            <input 
+                type="text" 
+                name="product_name" 
+                id="product_name" 
+                value="{{ product_details.product_name }}"  
+                class="form-control my-3" 
+                readonly 
+                placeholder="Product Name">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center my-4">
+            <input type="submit" value="Place Order" class="btn btn-primary btn-lg">
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
